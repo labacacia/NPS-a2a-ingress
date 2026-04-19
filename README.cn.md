@@ -11,7 +11,7 @@
 
 - **协议**：A2A v0.2 —— JSON-RPC 2.0 over HTTP POST。
 - **目标平台**：.NET 10，ASP.NET Core。
-- **NWP 规范**：`spec/NPS-2-NWP.md` v0.4（Action Node §7，异步生命周期 §7.2，`system.task.status` / `system.task.cancel` §7.3）。
+- **NWP 规范**：`spec/NPS-2-NWP.md` v0.5（Action Node §7，异步生命周期 §7.2，`system.task.status` / `system.task.cancel` §7.3）。
 
 ---
 

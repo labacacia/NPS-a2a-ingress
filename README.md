@@ -12,7 +12,7 @@ without knowing anything about NPS.
 
 - **Protocol**: A2A v0.2 — JSON-RPC 2.0 over HTTP POST.
 - **Target**: .NET 10, ASP.NET Core.
-- **NWP spec**: `spec/NPS-2-NWP.md` v0.4 (Action Node §7, async lifecycle §7.2, `system.task.status` / `system.task.cancel` §7.3).
+- **NWP spec**: `spec/NPS-2-NWP.md` v0.5 (Action Node §7, async lifecycle §7.2, `system.task.status` / `system.task.cancel` §7.3).
 
 ---
 
