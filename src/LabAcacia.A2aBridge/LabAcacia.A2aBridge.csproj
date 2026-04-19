@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>LabAcacia.A2aBridge</RootNamespace>
+    <PackageId>LabAcacia.A2aBridge</PackageId>
+    <AssemblyName>LabAcacia.A2aBridge</AssemblyName>
+    <Version>1.0.0-alpha.2</Version>
+    <Description>A2A ↔ NWP bridge: exposes an NPS NWP Action / Complex / Gateway Node to Google's Agent-to-Agent (A2A) protocol clients.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Authors>LabAcacia / INNO LOTUS PTY LTD</Authors>
+    <Company>INNO LOTUS PTY LTD</Company>
+    <PackageTags>nps;nwp;a2a;bridge;ai;agent</PackageTags>
+    <PackageProjectUrl>https://github.com/labacacia/nps</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/labacacia/nps</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>
