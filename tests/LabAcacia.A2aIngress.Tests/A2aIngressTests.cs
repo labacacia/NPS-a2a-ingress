@@ -4,17 +4,17 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using LabAcacia.A2aBridge;
+using LabAcacia.A2aIngress;
 using Xunit;
 
-namespace LabAcacia.A2aBridge.Tests;
+namespace LabAcacia.A2aIngress.Tests;
 
 /// <summary>
-/// Unit tests for <see cref="global::LabAcacia.A2aBridge.A2aBridge"/>. The upstream NWP
+/// Unit tests for <see cref="global::LabAcacia.A2aIngress.A2aIngress"/>. The upstream NWP
 /// Action Node is replaced with a <see cref="StubHandler"/> so we can run without any
 /// real HTTP server or network I/O.
 /// </summary>
-public sealed class A2aBridgeTests
+public sealed class A2aIngressTests
 {
     private static readonly JsonSerializerOptions Json = new()
     {
@@ -381,27 +381,27 @@ public sealed class A2aBridgeTests
     // ── Construction guards ──────────────────────────────────────────────────
 
     [Fact]
-    public void AddA2aBridge_MissingUpstream_Throws()
+    public void AddA2aIngress_MissingUpstream_Throws()
     {
         var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
         Assert.Throws<InvalidOperationException>(() =>
-            services.AddA2aBridge(_ => { /* do not override Upstream */ }));
+            services.AddA2aIngress(_ => { /* do not override Upstream */ }));
     }
 
     // ── Test fixtures ────────────────────────────────────────────────────────
 
-    private static (global::LabAcacia.A2aBridge.A2aBridge Bridge, StubHandler Handler) Build()
+    private static (global::LabAcacia.A2aIngress.A2aIngress Bridge, StubHandler Handler) Build()
     {
         var handler = StubHandler.ForActionNode();
         var upstream = new A2aUpstream { BaseUrl = new Uri("https://action.test/orders") };
-        var opts = new A2aBridgeOptions
+        var opts = new A2aIngressOptions
         {
             AgentName    = "NPS A2A Bridge (Test)",
             AgentVersion = "0.1.0-test",
             Upstream     = upstream,
         };
         var client = new NwpUpstreamClient(new HttpClient(handler), upstream);
-        return (new global::LabAcacia.A2aBridge.A2aBridge(opts, client), handler);
+        return (new global::LabAcacia.A2aIngress.A2aIngress(opts, client), handler);
     }
 }
 

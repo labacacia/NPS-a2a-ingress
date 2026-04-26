@@ -4,9 +4,9 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace LabAcacia.A2aBridge;
+namespace LabAcacia.A2aIngress;
 
-/// <summary>A2A protocol version implemented by this bridge.</summary>
+/// <summary>A2A protocol version implemented by this ingress.</summary>
 public static class A2aProtocol
 {
     /// <summary>
