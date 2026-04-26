@@ -4,7 +4,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-using LabAcacia.A2aBridge;
+using LabAcacia.A2aIngress;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -13,14 +13,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Http;
 using Xunit;
 
-namespace LabAcacia.A2aBridge.Tests;
+namespace LabAcacia.A2aIngress.Tests;
 
 /// <summary>
 /// End-to-end tests for the middleware-mapped endpoints (<c>/.well-known/agent.json</c>
 /// and the JSON-RPC <c>/a2a</c> endpoint), using <see cref="TestServer"/> with a stub
 /// upstream transport.
 /// </summary>
-public sealed class A2aBridgeEndpointTests
+public sealed class A2aIngressEndpointTests
 {
     private static readonly JsonSerializerOptions Json = new()
     {
@@ -121,10 +121,10 @@ public sealed class A2aBridgeEndpointTests
                 {
                     services.AddRouting();
 
-                    // AddA2aBridge registers the real DI graph; we then override just the
+                    // AddA2aIngress registers the real DI graph; we then override just the
                     // HttpMessageHandler for the "a2a-bridge" named client so upstream
                     // traffic hits StubHandler instead of real sockets.
-                    services.AddA2aBridge(o =>
+                    services.AddA2aIngress(o =>
                     {
                         o.AgentName = "NPS A2A Bridge (Endpoint Test)";
                         o.Upstream  = new A2aUpstream
@@ -145,7 +145,7 @@ public sealed class A2aBridgeEndpointTests
                 web.Configure(app =>
                 {
                     app.UseRouting();
-                    app.UseEndpoints(e => e.MapA2aBridge());
+                    app.UseEndpoints(e => e.MapA2aIngress());
                 });
             });
 

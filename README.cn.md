@@ -1,8 +1,8 @@
 [English Version](./README.md) | 中文版
 
-# LabAcacia.A2aBridge
+# LabAcacia.A2aIngress
 
-[![NuGet](https://img.shields.io/nuget/v/LabAcacia.A2aBridge.svg)](https://www.nuget.org/packages/LabAcacia.A2aBridge)
+[![NuGet](https://img.shields.io/nuget/v/LabAcacia.A2aIngress.svg)](https://www.nuget.org/packages/LabAcacia.A2aIngress)
 
 一个 **ASP.NET Core 库**，把单个 **NPS NWP Action / Complex / Gateway Node** 暴露为
 [Google Agent-to-Agent (A2A)](https://github.com/google/A2A) 服务端。A2A
@@ -37,7 +37,7 @@
 ## 安装
 
 ```bash
-dotnet add package LabAcacia.A2aBridge
+dotnet add package LabAcacia.A2aIngress
 ```
 
 ---
@@ -45,12 +45,12 @@ dotnet add package LabAcacia.A2aBridge
 ## 快速开始
 
 ```csharp
-using LabAcacia.A2aBridge;
+using LabAcacia.A2aIngress;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting();
-builder.Services.AddA2aBridge(o =>
+builder.Services.AddA2aIngress(o =>
 {
     o.AgentName        = "OrdersAgent";
     o.AgentDescription = "创建与取消客户订单。";
@@ -66,7 +66,7 @@ builder.Services.AddA2aBridge(o =>
 
 var app = builder.Build();
 app.UseRouting();
-app.UseEndpoints(e => e.MapA2aBridge());   // GET /.well-known/agent.json, POST /a2a
+app.UseEndpoints(e => e.MapA2aIngress());   // GET /.well-known/agent.json, POST /a2a
 app.Run();
 ```
 
@@ -76,7 +76,7 @@ A2A 客户端指向 `https://bridge.example.com/` 即可。
 
 ## 配置
 
-`A2aBridgeOptions`：
+`A2aIngressOptions`：
 
 | 属性                     | 默认值                                       | 用途                                                      |
 | ------------------------ | -------------------------------------------- | --------------------------------------------------------- |
@@ -129,7 +129,7 @@ JSON-RPC *通知*（无 `id`）返回 HTTP `204 No Content`。
 ## 测试
 
 ```bash
-dotnet test compat/a2a-bridge/tests/LabAcacia.A2aBridge.Tests/LabAcacia.A2aBridge.Tests.csproj
+dotnet test compat/a2a-bridge/tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIngress.Tests.csproj
 ```
 
 测试基于桩 `HttpMessageHandler`，无需网络。

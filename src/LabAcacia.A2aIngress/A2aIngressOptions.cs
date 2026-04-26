@@ -1,7 +1,7 @@
 // Copyright 2026 INNO LOTUS PTY LTD
 // SPDX-License-Identifier: Apache-2.0
 
-namespace LabAcacia.A2aBridge;
+namespace LabAcacia.A2aIngress;
 
 /// <summary>
 /// Upstream NWP node that the A2A bridge proxies to. An A2A AgentCard describes a
@@ -20,8 +20,8 @@ public sealed record A2aUpstream
     public string? AuthHeader { get; init; }
 }
 
-/// <summary>Configuration for <see cref="A2aBridge"/>.</summary>
-public sealed class A2aBridgeOptions
+/// <summary>Configuration for <see cref="A2aIngress"/>.</summary>
+public sealed class A2aIngressOptions
 {
     /// <summary>AgentCard <c>name</c> — human-readable.</summary>
     public string AgentName { get; set; } = "NPS A2A Bridge";
@@ -29,13 +29,13 @@ public sealed class A2aBridgeOptions
     /// <summary>AgentCard <c>description</c>.</summary>
     public string? AgentDescription { get; set; }
 
-    /// <summary>AgentCard <c>version</c> (what the upstream advertises, not the bridge itself).</summary>
+    /// <summary>AgentCard <c>version</c> (what the upstream advertises, not the ingress itself).</summary>
     public string AgentVersion { get; set; } = "0.1.0";
 
     /// <summary>
-    /// Public URL the AgentCard advertises for this bridge's JSON-RPC endpoint.
+    /// Public URL the AgentCard advertises for this ingress's JSON-RPC endpoint.
     /// A2A clients use this to dispatch <c>tasks/send</c> / <c>tasks/get</c>.
-    /// If null, the bridge uses the inbound request's own scheme+host+path at resolve time.
+    /// If null, the ingress uses the inbound request's own scheme+host+path at resolve time.
     /// </summary>
     public Uri? PublicUrl { get; set; }
 
@@ -54,6 +54,6 @@ public sealed class A2aBridgeOptions
     /// </summary>
     public IReadOnlyList<string> AuthSchemes { get; set; } = Array.Empty<string>();
 
-    /// <summary>The single upstream NWP node this bridge fronts.</summary>
+    /// <summary>The single upstream NWP node this ingress fronts.</summary>
     public required A2aUpstream Upstream { get; set; }
 }
