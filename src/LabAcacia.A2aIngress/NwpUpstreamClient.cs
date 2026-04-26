@@ -4,10 +4,10 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace LabAcacia.A2aBridge;
+namespace LabAcacia.A2aIngress;
 
 /// <summary>
-/// Thin typed client for the single upstream NWP node that this A2A bridge fronts.
+/// Thin typed client for the single upstream NWP node that this A2A ingress fronts.
 /// Knows how to read <c>/.nwm</c>, <c>/actions</c>, and <c>POST /invoke</c>.
 /// </summary>
 public sealed class NwpUpstreamClient

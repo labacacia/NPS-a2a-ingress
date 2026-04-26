@@ -1,8 +1,8 @@
 English | [中文版](./README.cn.md)
 
-# LabAcacia.A2aBridge
+# LabAcacia.A2aIngress
 
-[![NuGet](https://img.shields.io/nuget/v/LabAcacia.A2aBridge.svg)](https://www.nuget.org/packages/LabAcacia.A2aBridge)
+[![NuGet](https://img.shields.io/nuget/v/LabAcacia.A2aIngress.svg)](https://www.nuget.org/packages/LabAcacia.A2aIngress)
 
 An **ASP.NET Core library** that exposes a single **NPS NWP Action / Complex /
 Gateway Node** as a [Google Agent-to-Agent (A2A)](https://github.com/google/A2A)
@@ -38,7 +38,7 @@ Skill selection: `tasks/send` picks the upstream `action_id` from (in order) —
 ## Install
 
 ```bash
-dotnet add package LabAcacia.A2aBridge
+dotnet add package LabAcacia.A2aIngress
 ```
 
 ---
@@ -46,12 +46,12 @@ dotnet add package LabAcacia.A2aBridge
 ## Quick start
 
 ```csharp
-using LabAcacia.A2aBridge;
+using LabAcacia.A2aIngress;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting();
-builder.Services.AddA2aBridge(o =>
+builder.Services.AddA2aIngress(o =>
 {
     o.AgentName        = "OrdersAgent";
     o.AgentDescription = "Create and cancel customer orders.";
@@ -67,7 +67,7 @@ builder.Services.AddA2aBridge(o =>
 
 var app = builder.Build();
 app.UseRouting();
-app.UseEndpoints(e => e.MapA2aBridge());   // GET /.well-known/agent.json, POST /a2a
+app.UseEndpoints(e => e.MapA2aIngress());   // GET /.well-known/agent.json, POST /a2a
 app.Run();
 ```
 
@@ -77,7 +77,7 @@ Point any A2A-compatible client at `https://bridge.example.com/`.
 
 ## Configuration
 
-`A2aBridgeOptions`:
+`A2aIngressOptions`:
 
 | Property                 | Default                                   | Purpose                                                    |
 | ------------------------ | ----------------------------------------- | ---------------------------------------------------------- |
@@ -89,7 +89,7 @@ Point any A2A-compatible client at `https://bridge.example.com/`.
 | `ProviderUrl`            | `https://github.com/labacacia/nps`        | AgentCard `provider.url`.                                  |
 | `DocumentationUrl`       | `null`                                    | AgentCard `documentationUrl`.                              |
 | `AuthSchemes`            | `[]`                                      | AgentCard `authentication.schemes` (e.g. `"bearer"`).      |
-| `Upstream`               | *(required)*                              | The single NWP node this bridge fronts.                    |
+| `Upstream`               | *(required)*                              | The single NWP node this ingress fronts.                    |
 
 `A2aUpstream`:
 
@@ -107,7 +107,7 @@ Standard JSON-RPC (`-32700` … `-32603`) plus A2A application errors:
 
 | Code      | Meaning                                                     |
 | --------- | ----------------------------------------------------------- |
-| `-32001`  | Task id unknown — the bridge has no record of that task.    |
+| `-32001`  | Task id unknown — the ingress has no record of that task.    |
 | `-32002`  | Upstream refused to cancel the task.                        |
 | `-32004`  | Method is not implemented (e.g. streaming / push).          |
 | `-32010`  | Upstream returned a non-success status during polling.      |
@@ -124,7 +124,7 @@ JSON-RPC *notifications* (requests without `id`) receive HTTP `204 No Content`.
 
 The bridge holds an in-process map of `{a2a_task_id → upstream_task_id}` so that
 `tasks/get` and `tasks/cancel` can rewrite the request onto the correct upstream
-task. Restarting the bridge forgets async tasks in flight. For production
+task. Restarting the ingress forgets async tasks in flight. For production
 multi-replica deployments, replace the in-memory dictionary with a shared store
 (out of scope for v0.1).
 
@@ -133,7 +133,7 @@ multi-replica deployments, replace the in-memory dictionary with a shared store
 ## Testing
 
 ```bash
-dotnet test compat/a2a-bridge/tests/LabAcacia.A2aBridge.Tests/LabAcacia.A2aBridge.Tests.csproj
+dotnet test compat/a2a-bridge/tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIngress.Tests.csproj
 ```
 
 Tests run against a stub `HttpMessageHandler` — no network required.

@@ -1,10 +1,24 @@
 English | [中文版](./CHANGELOG.cn.md)
 
-# Changelog — A2A Bridge (`LabAcacia.A2aBridge`)
+# Changelog — A2A Ingress (`LabAcacia.A2aIngress`)
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Until NPS reaches v1.0 stable, every repository in the suite is synchronized to the same pre-release version tag.
+
+---
+
+## [1.0.0-alpha.3] — 2026-04-26
+
+### Renamed (BREAKING)
+
+- Package renamed `LabAcacia.A2aBridge` → `LabAcacia.A2aIngress` per [NPS-CR-0001](https://github.com/labacacia/NPS-Dev/blob/dev/spec/cr/NPS-CR-0001-anchor-bridge-split.md). The new spec-level **Bridge Node** type (NWP §2A) carries the *NPS → external* direction; this package carries the **inverse** direction (external → NPS) and is therefore renamed `*Ingress`. The on-the-wire surface is identical to alpha.2; only the assembly name + namespace changed. Consumers update `<PackageReference Include="LabAcacia.A2aBridge"/>` → `LabAcacia.A2aIngress` and the `using LabAcacia.A2aBridge;` import.
+- The corresponding GitHub repository was renamed `labacacia/NPS-a2a-bridge` → `labacacia/NPS-a2a-ingress`. GitHub redirects the old URL automatically; existing clones can update with `git remote set-url origin https://github.com/labacacia/NPS-a2a-ingress.git`.
+- Tests still pass at the same count as alpha.2 (no functional change beyond rename).
+
+### Synced
+
+- Version bumped 1.0.0-alpha.2 → 1.0.0-alpha.3 in lockstep with the rest of the NPS suite.
 
 ---
 
