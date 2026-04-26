@@ -6,7 +6,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace LabAcacia.A2aBridge;
+namespace LabAcacia.A2aIngress;
 
 /// <summary>
 /// Core A2A ↔ NWP dispatcher. Translates A2A JSON-RPC methods into calls on the
@@ -24,7 +24,7 @@ namespace LabAcacia.A2aBridge;
 /// otherwise from the <c>data</c> part minus the skill-id key.
 /// </para>
 /// </summary>
-public sealed class A2aBridge
+public sealed class A2aIngress
 {
     internal static readonly JsonSerializerOptions Json = new()
     {
@@ -40,26 +40,26 @@ public sealed class A2aBridge
         DefaultIgnoreCondition      = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
     };
 
-    private readonly A2aBridgeOptions _options;
+    private readonly A2aIngressOptions _options;
     private readonly NwpUpstreamClient _client;
     private readonly ILogger _log;
 
     /// <summary>Maps A2A-supplied task ids onto upstream NWP task ids (for async polling).</summary>
     private readonly ConcurrentDictionary<string, UpstreamTaskBinding> _tasks = new();
 
-    public A2aBridge(
-        A2aBridgeOptions options,
+    public A2aIngress(
+        A2aIngressOptions options,
         NwpUpstreamClient client,
-        ILogger<A2aBridge>? logger = null)
+        ILogger<A2aIngress>? logger = null)
     {
         _options = options;
         _client  = client;
         _log     = (ILogger?)logger ?? NullLogger.Instance;
     }
 
-    /// <summary>Options this bridge was built with — exposed for the endpoint to read
+    /// <summary>Options this ingress was built with — exposed for the endpoint to read
     /// the public URL and metadata when synthesising the AgentCard.</summary>
-    public A2aBridgeOptions Options => _options;
+    public A2aIngressOptions Options => _options;
 
     // ── AgentCard ────────────────────────────────────────────────────────────
 
@@ -120,9 +120,9 @@ public sealed class A2aBridge
                 "tasks/cancel" => Ok(req.Id, await HandleCancel(req.Params, ct)),
                 "tasks/sendSubscribe" or "tasks/pushNotification/set" or "tasks/pushNotification/get" =>
                     Err(req.Id, JsonRpcErrorCodes.UnsupportedOperation,
-                        $"Method '{req.Method}' is not supported — this bridge advertises capabilities.streaming=false and pushNotifications=false."),
+                        $"Method '{req.Method}' is not supported — this ingress advertises capabilities.streaming=false and pushNotifications=false."),
                 _ => Err(req.Id, JsonRpcErrorCodes.MethodNotFound,
-                         $"Method '{req.Method}' is not supported by this bridge."),
+                         $"Method '{req.Method}' is not supported by this ingress."),
             };
         }
         catch (BridgeException bex)
@@ -244,7 +244,7 @@ public sealed class A2aBridge
             ?? throw new BridgeException(JsonRpcErrorCodes.InvalidParams, "tasks/get requires params.");
         if (!_tasks.TryGetValue(p.Id, out var binding))
             throw new BridgeException(JsonRpcErrorCodes.TaskNotFound,
-                $"Task '{p.Id}' is not tracked by this bridge — either it never existed or the bridge restarted.");
+                $"Task '{p.Id}' is not tracked by this ingress — either it never existed or the ingress restarted.");
 
         var nowIso = DateTimeOffset.UtcNow.ToString("o");
         var invokeBody = JsonSerializer.SerializeToElement(new
@@ -279,7 +279,7 @@ public sealed class A2aBridge
             ?? throw new BridgeException(JsonRpcErrorCodes.InvalidParams, "tasks/cancel requires params.");
         if (!_tasks.TryGetValue(p.Id, out var binding))
             throw new BridgeException(JsonRpcErrorCodes.TaskNotFound,
-                $"Task '{p.Id}' is not tracked by this bridge.");
+                $"Task '{p.Id}' is not tracked by this ingress.");
 
         var invokeBody = JsonSerializer.SerializeToElement(new
         {

@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\LabAcacia.A2aBridge\LabAcacia.A2aBridge.csproj" />
+    <ProjectReference Include="..\..\src\LabAcacia.A2aIngress\LabAcacia.A2aIngress.csproj" />
   </ItemGroup>
 
 </Project>

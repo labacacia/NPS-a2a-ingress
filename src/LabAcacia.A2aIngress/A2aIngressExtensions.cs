@@ -9,37 +9,37 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace LabAcacia.A2aBridge;
+namespace LabAcacia.A2aIngress;
 
 /// <summary>DI + pipeline extensions for the A2A bridge.</summary>
-public static class A2aBridgeExtensions
+public static class A2aIngressExtensions
 {
     /// <summary>
-    /// Register an <see cref="A2aBridge"/> with the given upstream configuration.
+    /// Register an <see cref="A2aIngress"/> with the given upstream configuration.
     /// The upstream is backed by a typed <c>HttpClient</c> from <c>IHttpClientFactory</c>.
     /// </summary>
-    public static IServiceCollection AddA2aBridge(
+    public static IServiceCollection AddA2aIngress(
         this IServiceCollection services,
-        Action<A2aBridgeOptions> configure)
+        Action<A2aIngressOptions> configure)
     {
-        var opts = new A2aBridgeOptions
+        var opts = new A2aIngressOptions
         {
             Upstream = new A2aUpstream { BaseUrl = new Uri("http://placeholder.invalid") },
         };
         configure(opts);
 
         if (opts.Upstream is null)
-            throw new InvalidOperationException("A2aBridgeOptions.Upstream MUST be configured.");
+            throw new InvalidOperationException("A2aIngressOptions.Upstream MUST be configured.");
         if (opts.Upstream.BaseUrl.Host == "placeholder.invalid")
-            throw new InvalidOperationException("A2aBridgeOptions.Upstream.BaseUrl MUST be set to the real NWP node URL.");
+            throw new InvalidOperationException("A2aIngressOptions.Upstream.BaseUrl MUST be set to the real NWP node URL.");
 
         services.AddSingleton(opts);
         services.AddHttpClient();
-        services.AddSingleton<A2aBridge>(sp =>
+        services.AddSingleton<A2aIngress>(sp =>
         {
             var http   = sp.GetRequiredService<IHttpClientFactory>();
             var client = new NwpUpstreamClient(http.CreateClient("a2a-bridge"), opts.Upstream);
-            return new A2aBridge(opts, client, sp.GetService<ILogger<A2aBridge>>());
+            return new A2aIngress(opts, client, sp.GetService<ILogger<A2aIngress>>());
         });
 
         return services;
@@ -49,24 +49,24 @@ public static class A2aBridgeExtensions
     /// Maps both the AgentCard endpoint (<c>/.well-known/agent.json</c>) and the
     /// JSON-RPC RPC endpoint. Default RPC path is <c>/a2a</c>.
     /// </summary>
-    public static IEndpointConventionBuilder MapA2aBridge(
+    public static IEndpointConventionBuilder MapA2aIngress(
         this IEndpointRouteBuilder endpoints,
         string rpcPath = "/a2a",
         string agentCardPath = "/.well-known/agent.json")
     {
         // AgentCard (GET)
-        endpoints.MapGet(agentCardPath, async (HttpContext ctx, A2aBridge bridge) =>
+        endpoints.MapGet(agentCardPath, async (HttpContext ctx, A2aIngress bridge) =>
         {
             var resolved = bridge.Options.PublicUrl?.ToString().TrimEnd('/')
                            ?? BuildLocalUrl(ctx, rpcPath);
 
             var card = await bridge.BuildAgentCardAsync(resolved, ctx.RequestAborted);
             ctx.Response.ContentType = "application/json";
-            await JsonSerializer.SerializeAsync(ctx.Response.Body, card, A2aBridge.JsonCamel, ctx.RequestAborted);
+            await JsonSerializer.SerializeAsync(ctx.Response.Body, card, A2aIngress.JsonCamel, ctx.RequestAborted);
         });
 
         // JSON-RPC endpoint (POST)
-        return endpoints.MapPost(rpcPath, async (HttpContext ctx, A2aBridge bridge) =>
+        return endpoints.MapPost(rpcPath, async (HttpContext ctx, A2aIngress bridge) =>
         {
             if (!ctx.Request.ContentType?.StartsWith("application/json", StringComparison.OrdinalIgnoreCase) ?? true)
             {
@@ -78,7 +78,7 @@ public static class A2aBridgeExtensions
             try
             {
                 req = await JsonSerializer.DeserializeAsync<JsonRpcRequest>(
-                    ctx.Request.Body, A2aBridge.Json, ctx.RequestAborted);
+                    ctx.Request.Body, A2aIngress.Json, ctx.RequestAborted);
             }
             catch (JsonException jex)
             {
@@ -122,7 +122,7 @@ public static class A2aBridgeExtensions
     {
         ctx.Response.StatusCode  = StatusCodes.Status200OK;
         ctx.Response.ContentType = "application/json";
-        var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(resp, A2aBridge.Json));
+        var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(resp, A2aIngress.Json));
         await ctx.Response.Body.WriteAsync(bytes);
     }
 }
