@@ -59,7 +59,7 @@ builder.Services.AddA2aIngress(o =>
     o.Upstream         = new A2aUpstream
     {
         BaseUrl    = new Uri("https://action.internal/orders"),
-        AgentNid   = "urn:nps:nid:agent:a2a-bridge",
+        AgentNid   = "urn:nps:nid:agent:a2a-ingress",
         AuthHeader = "Bearer <service-token>",
     };
 });
@@ -80,7 +80,7 @@ A2A 客户端指向 `https://bridge.example.com/` 即可。
 
 | 属性                     | 默认值                                       | 用途                                                      |
 | ------------------------ | -------------------------------------------- | --------------------------------------------------------- |
-| `AgentName`              | `NPS A2A Bridge`                             | AgentCard `name`。                                        |
+| `AgentName`              | `NPS A2A Ingress`                             | AgentCard `name`。                                        |
 | `AgentDescription`       | `null`（回退到上游 `display_name`）          | AgentCard `description`。                                 |
 | `AgentVersion`           | `0.1.0`                                      | AgentCard `version`。                                     |
 | `PublicUrl`              | `null`（根据请求自动推导）                   | AgentCard `url` —— 客户端应发起调用的 RPC 端点。          |
@@ -129,10 +129,17 @@ JSON-RPC *通知*（无 `id`）返回 HTTP `204 No Content`。
 ## 测试
 
 ```bash
-dotnet test compat/a2a-bridge/tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIngress.Tests.csproj
+dotnet test compat/a2a-ingress/tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIngress.Tests.csproj
 ```
 
 测试基于桩 `HttpMessageHandler`，无需网络。
+
+---
+
+## 扩展阅读
+
+- [A2A Ingress 详解](../../docs/compat/a2a-ingress.md) — 1:1 AgentCard 映射、skill 查找、任务状态转换、内存绑定图、多副本注意
+- [桥层总览](../../docs/compat/index.md) — MCP / A2A / gRPC 何时选哪个
 
 ---
 

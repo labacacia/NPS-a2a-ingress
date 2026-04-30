@@ -26,11 +26,11 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task AgentCard_MergesUpstreamActionsIntoSkills()
     {
-        var (bridge, _) = Build();
+        var (ingress, _) = Build();
 
-        var card = await bridge.BuildAgentCardAsync("https://bridge.test/a2a");
+        var card = await ingress.BuildAgentCardAsync("https://bridge.test/a2a");
 
-        Assert.Equal("NPS A2A Bridge (Test)", card.Name);
+        Assert.Equal("NPS A2A Ingress (Test)", card.Name);
         Assert.Equal("https://bridge.test/a2a", card.Url);
         Assert.Equal(2, card.Skills.Count);
         Assert.Contains(card.Skills, s => s.Id == "orders.create" && s.Tags != null && s.Tags.Contains("async"));
@@ -44,9 +44,9 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksSend_WithDataPartSkillId_CallsUpstreamInvoke_AndReturnsCompleted()
     {
-        var (bridge, handler) = Build();
+        var (ingress, handler) = Build();
 
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/send",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -81,9 +81,9 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksSend_WithMetadataSkillId_UsesExplicitParams()
     {
-        var (bridge, handler) = Build();
+        var (ingress, handler) = Build();
 
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/send",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -109,11 +109,11 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksSend_Async202_ReturnsSubmitted_AndTracksTask()
     {
-        var (bridge, handler) = Build();
+        var (ingress, handler) = Build();
         handler.InvokeStatus = HttpStatusCode.Accepted;
         handler.InvokeBody   = """{"task_id":"nwp-7777","status":"pending","poll_url":"/invoke"}""";
 
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/send",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -136,11 +136,11 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksSend_UpstreamError_ReturnsTaskWithFailedState()
     {
-        var (bridge, handler) = Build();
+        var (ingress, handler) = Build();
         handler.InvokeStatus = HttpStatusCode.BadRequest;
         handler.InvokeBody   = """{"error":"NWP-ACTION-PARAMS-INVALID"}""";
 
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/send",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -167,9 +167,9 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksSend_NoSkillId_ReturnsInvalidParams()
     {
-        var (bridge, _) = Build();
+        var (ingress, _) = Build();
 
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/send",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -191,9 +191,9 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksSend_MissingMessage_ReturnsInvalidParams()
     {
-        var (bridge, _) = Build();
+        var (ingress, _) = Build();
 
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/send",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -209,12 +209,12 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksGet_AfterAsync_MapsUpstreamStatusToWorking_ThenCompleted()
     {
-        var (bridge, handler) = Build();
+        var (ingress, handler) = Build();
 
         // 1) Submit an async task.
         handler.InvokeStatus = HttpStatusCode.Accepted;
         handler.InvokeBody   = """{"task_id":"nwp-9999","status":"pending"}""";
-        await bridge.DispatchAsync(new JsonRpcRequest
+        await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/send",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -232,7 +232,7 @@ public sealed class A2aIngressTests
         // 2) First poll → running.
         handler.InvokeStatus = HttpStatusCode.OK;
         handler.InvokeBody   = """{"anchor_ref":"","count":1,"data":[{"task_id":"nwp-9999","status":"running"}],"token_est":0}""";
-        var g1 = await bridge.DispatchAsync(new JsonRpcRequest
+        var g1 = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/get",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -244,7 +244,7 @@ public sealed class A2aIngressTests
 
         // 3) Second poll → completed with a result payload.
         handler.InvokeBody = """{"anchor_ref":"","count":1,"data":[{"task_id":"nwp-9999","status":"completed","result":{"order_id":"O-42"}}],"token_est":0}""";
-        var g2 = await bridge.DispatchAsync(new JsonRpcRequest
+        var g2 = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/get",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -272,9 +272,9 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksGet_UnknownTask_ReturnsTaskNotFound()
     {
-        var (bridge, _) = Build();
+        var (ingress, _) = Build();
 
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/get",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -290,12 +290,12 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksCancel_KnownTask_CallsUpstreamCancel_AndReturnsCanceled()
     {
-        var (bridge, handler) = Build();
+        var (ingress, handler) = Build();
 
         // Seed: submit async task first.
         handler.InvokeStatus = HttpStatusCode.Accepted;
         handler.InvokeBody   = """{"task_id":"nwp-1","status":"pending"}""";
-        await bridge.DispatchAsync(new JsonRpcRequest
+        await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/send",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -313,7 +313,7 @@ public sealed class A2aIngressTests
         // Cancel: upstream responds 200.
         handler.InvokeStatus = HttpStatusCode.OK;
         handler.InvokeBody   = """{"anchor_ref":"","count":1,"data":[{"task_id":"nwp-1","status":"cancelled"}],"token_est":0}""";
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/cancel",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -333,9 +333,9 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksCancel_UnknownTask_ReturnsTaskNotFound()
     {
-        var (bridge, _) = Build();
+        var (ingress, _) = Build();
 
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/cancel",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -351,9 +351,9 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task TasksSendSubscribe_ReturnsUnsupportedOperation()
     {
-        var (bridge, _) = Build();
+        var (ingress, _) = Build();
 
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "tasks/sendSubscribe",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -366,9 +366,9 @@ public sealed class A2aIngressTests
     [Fact]
     public async Task UnknownMethod_ReturnsMethodNotFound()
     {
-        var (bridge, _) = Build();
+        var (ingress, _) = Build();
 
-        var resp = await bridge.DispatchAsync(new JsonRpcRequest
+        var resp = await ingress.DispatchAsync(new JsonRpcRequest
         {
             Method = "completely/unknown",
             Id     = JsonDocument.Parse("1").RootElement,
@@ -390,13 +390,13 @@ public sealed class A2aIngressTests
 
     // ── Test fixtures ────────────────────────────────────────────────────────
 
-    private static (global::LabAcacia.A2aIngress.A2aIngress Bridge, StubHandler Handler) Build()
+    private static (global::LabAcacia.A2aIngress.A2aIngress Ingress, StubHandler Handler) Build()
     {
         var handler = StubHandler.ForActionNode();
         var upstream = new A2aUpstream { BaseUrl = new Uri("https://action.test/orders") };
         var opts = new A2aIngressOptions
         {
-            AgentName    = "NPS A2A Bridge (Test)",
+            AgentName    = "NPS A2A Ingress (Test)",
             AgentVersion = "0.1.0-test",
             Upstream     = upstream,
         };

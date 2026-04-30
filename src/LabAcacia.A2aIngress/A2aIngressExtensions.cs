@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace LabAcacia.A2aIngress;
 
-/// <summary>DI + pipeline extensions for the A2A bridge.</summary>
+/// <summary>DI + pipeline extensions for the A2A ingress.</summary>
 public static class A2aIngressExtensions
 {
     /// <summary>
@@ -38,7 +38,7 @@ public static class A2aIngressExtensions
         services.AddSingleton<A2aIngress>(sp =>
         {
             var http   = sp.GetRequiredService<IHttpClientFactory>();
-            var client = new NwpUpstreamClient(http.CreateClient("a2a-bridge"), opts.Upstream);
+            var client = new NwpUpstreamClient(http.CreateClient("a2a-ingress"), opts.Upstream);
             return new A2aIngress(opts, client, sp.GetService<ILogger<A2aIngress>>());
         });
 
@@ -55,18 +55,18 @@ public static class A2aIngressExtensions
         string agentCardPath = "/.well-known/agent.json")
     {
         // AgentCard (GET)
-        endpoints.MapGet(agentCardPath, async (HttpContext ctx, A2aIngress bridge) =>
+        endpoints.MapGet(agentCardPath, async (HttpContext ctx, A2aIngress ingress) =>
         {
-            var resolved = bridge.Options.PublicUrl?.ToString().TrimEnd('/')
+            var resolved = ingress.Options.PublicUrl?.ToString().TrimEnd('/')
                            ?? BuildLocalUrl(ctx, rpcPath);
 
-            var card = await bridge.BuildAgentCardAsync(resolved, ctx.RequestAborted);
+            var card = await ingress.BuildAgentCardAsync(resolved, ctx.RequestAborted);
             ctx.Response.ContentType = "application/json";
             await JsonSerializer.SerializeAsync(ctx.Response.Body, card, A2aIngress.JsonCamel, ctx.RequestAborted);
         });
 
         // JSON-RPC endpoint (POST)
-        return endpoints.MapPost(rpcPath, async (HttpContext ctx, A2aIngress bridge) =>
+        return endpoints.MapPost(rpcPath, async (HttpContext ctx, A2aIngress ingress) =>
         {
             if (!ctx.Request.ContentType?.StartsWith("application/json", StringComparison.OrdinalIgnoreCase) ?? true)
             {
@@ -98,7 +98,7 @@ public static class A2aIngressExtensions
                 return;
             }
 
-            var resp = await bridge.DispatchAsync(req, ctx.RequestAborted);
+            var resp = await ingress.DispatchAsync(req, ctx.RequestAborted);
 
             // Notifications (id == null) MUST NOT produce a response per JSON-RPC 2.0.
             if (req.Id is null)
