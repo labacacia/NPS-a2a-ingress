@@ -60,7 +60,7 @@ builder.Services.AddA2aIngress(o =>
     o.Upstream         = new A2aUpstream
     {
         BaseUrl    = new Uri("https://action.internal/orders"),
-        AgentNid   = "urn:nps:nid:agent:a2a-bridge",
+        AgentNid   = "urn:nps:nid:agent:a2a-ingress",
         AuthHeader = "Bearer <service-token>",
     };
 });
@@ -81,7 +81,7 @@ Point any A2A-compatible client at `https://bridge.example.com/`.
 
 | Property                 | Default                                   | Purpose                                                    |
 | ------------------------ | ----------------------------------------- | ---------------------------------------------------------- |
-| `AgentName`              | `NPS A2A Bridge`                          | AgentCard `name`.                                          |
+| `AgentName`              | `NPS A2A Ingress`                          | AgentCard `name`.                                          |
 | `AgentDescription`       | `null` (falls back to upstream `display_name`) | AgentCard `description`.                              |
 | `AgentVersion`           | `0.1.0`                                   | AgentCard `version`.                                       |
 | `PublicUrl`              | `null` (auto-derived from request)        | AgentCard `url` — the RPC endpoint clients should dispatch to. |
@@ -133,10 +133,17 @@ multi-replica deployments, replace the in-memory dictionary with a shared store
 ## Testing
 
 ```bash
-dotnet test compat/a2a-bridge/tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIngress.Tests.csproj
+dotnet test compat/a2a-ingress/tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIngress.Tests.csproj
 ```
 
 Tests run against a stub `HttpMessageHandler` — no network required.
+
+---
+
+## Further reading
+
+- [A2A Ingress deep dive](../../docs/compat/a2a-ingress.en.md) — 1:1 AgentCard mapping, skill lookup, task state translation, in-memory binding map, replica notes
+- [Compat ingresses overview](../../docs/compat/index.en.md) — when to pick MCP / A2A / gRPC
 
 ---
 

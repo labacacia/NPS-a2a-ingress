@@ -4,9 +4,9 @@
 namespace LabAcacia.A2aIngress;
 
 /// <summary>
-/// Upstream NWP node that the A2A bridge proxies to. An A2A AgentCard describes a
+/// Upstream NWP node that the A2A ingress proxies to. An A2A AgentCard describes a
 /// single logical agent — unlike MCP (which multiplexes several upstreams under one
-/// server), the A2A bridge binds exactly one upstream per AgentCard.
+/// server), the A2A ingress binds exactly one upstream per AgentCard.
 /// </summary>
 public sealed record A2aUpstream
 {
@@ -24,7 +24,7 @@ public sealed record A2aUpstream
 public sealed class A2aIngressOptions
 {
     /// <summary>AgentCard <c>name</c> — human-readable.</summary>
-    public string AgentName { get; set; } = "NPS A2A Bridge";
+    public string AgentName { get; set; } = "NPS A2A Ingress";
 
     /// <summary>AgentCard <c>description</c>.</summary>
     public string? AgentDescription { get; set; }
@@ -50,7 +50,7 @@ public sealed class A2aIngressOptions
 
     /// <summary>
     /// Authentication schemes advertised in the AgentCard. Empty list means no auth
-    /// (bridge-level) — but the upstream may still require its own NIP auth.
+    /// (ingress-level) — but the upstream may still require its own NIP auth.
     /// </summary>
     public IReadOnlyList<string> AuthSchemes { get; set; } = Array.Empty<string>();
 
