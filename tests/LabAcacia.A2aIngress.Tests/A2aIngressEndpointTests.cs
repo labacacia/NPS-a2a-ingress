@@ -38,7 +38,7 @@ public sealed class A2aIngressEndpointTests
         Assert.Equal("application/json", resp.Content.Headers.ContentType!.MediaType);
 
         var card = await resp.Content.ReadFromJsonAsync<JsonElement>(Json);
-        Assert.Equal("NPS A2A Bridge (Endpoint Test)", card.GetProperty("name").GetString());
+        Assert.Equal("NPS A2A Ingress (Endpoint Test)", card.GetProperty("name").GetString());
         Assert.Contains("orders.cancel",
             card.GetProperty("skills").EnumerateArray()
                 .Select(s => s.GetProperty("id").GetString()));
@@ -122,18 +122,18 @@ public sealed class A2aIngressEndpointTests
                     services.AddRouting();
 
                     // AddA2aIngress registers the real DI graph; we then override just the
-                    // HttpMessageHandler for the "a2a-bridge" named client so upstream
+                    // HttpMessageHandler for the "a2a-ingress" named client so upstream
                     // traffic hits StubHandler instead of real sockets.
                     services.AddA2aIngress(o =>
                     {
-                        o.AgentName = "NPS A2A Bridge (Endpoint Test)";
+                        o.AgentName = "NPS A2A Ingress (Endpoint Test)";
                         o.Upstream  = new A2aUpstream
                         {
                             BaseUrl = new Uri("https://action.test/orders"),
                         };
                     });
 
-                    services.Configure<HttpClientFactoryOptions>("a2a-bridge", options =>
+                    services.Configure<HttpClientFactoryOptions>("a2a-ingress", options =>
                     {
                         options.HttpMessageHandlerBuilderActions.Add(b =>
                         {

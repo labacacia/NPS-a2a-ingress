@@ -8,6 +8,26 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 ---
 
+## [1.0.0-alpha.4] — 2026-04-30
+
+### Synced
+
+- Version bumped 1.0.0-alpha.3 → 1.0.0-alpha.4 in lockstep with the
+  rest of the NPS suite. No functional changes in A2A Ingress itself.
+- `LabAcacia.NPS.NWP` dependency follows to alpha.4, picking up
+  `LabAcacia.NPS.NWP.Anchor` topology query types (NPS-CR-0002) at
+  the SDK layer. A2A Ingress does not surface those over A2A at
+  alpha.4.
+- 18 tests still green.
+
+### Summary
+
+- Exposes NWP Memory / Action / Complex Nodes as Google A2A v0.2
+  servers. External A2A clients can call NPS Nodes without an NPS
+  SDK on the client side.
+
+---
+
 ## [1.0.0-alpha.3] — 2026-04-26
 
 ### Renamed (BREAKING)
@@ -39,5 +59,7 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 Initial release under the NPS suite `v1.0.0-alpha.1` umbrella tag.
 
+[1.0.0-alpha.4]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.4
+[1.0.0-alpha.3]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.3
 [1.0.0-alpha.2]: https://github.com/LabAcacia/nps/releases/tag/v1.0.0-alpha.2
 [1.0.0-alpha.1]: https://github.com/LabAcacia/nps/releases/tag/v1.0.0-alpha.1
