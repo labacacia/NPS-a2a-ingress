@@ -9,12 +9,12 @@
     <RootNamespace>LabAcacia.A2aIngress</RootNamespace>
     <PackageId>LabAcacia.A2aIngress</PackageId>
     <AssemblyName>LabAcacia.A2aIngress</AssemblyName>
-    <Version>1.0.0-alpha.3</Version>
-    <Description>A2A ↔ NWP bridge: exposes an NPS NWP Action / Complex / Gateway Node to Google's Agent-to-Agent (A2A) protocol clients.</Description>
+    <Version>1.0.0-alpha.4</Version>
+    <Description>A2A ↔ NWP ingress: exposes an NPS NWP Action / Complex / Gateway Node to Google's Agent-to-Agent (A2A) protocol clients.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Authors>LabAcacia / INNO LOTUS PTY LTD</Authors>
     <Company>INNO LOTUS PTY LTD</Company>
-    <PackageTags>nps;nwp;a2a;bridge;ai;agent</PackageTags>
+    <PackageTags>nps;nwp;a2a;ingress;ai;agent</PackageTags>
     <PackageProjectUrl>https://github.com/labacacia/nps</PackageProjectUrl>
     <RepositoryUrl>https://github.com/labacacia/nps</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

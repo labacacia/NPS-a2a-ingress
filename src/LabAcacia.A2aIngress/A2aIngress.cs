@@ -64,7 +64,7 @@ public sealed class A2aIngress
     // ── AgentCard ────────────────────────────────────────────────────────────
 
     /// <summary>
-    /// Build the <c>/.well-known/agent.json</c> AgentCard by merging bridge options
+    /// Build the <c>/.well-known/agent.json</c> AgentCard by merging ingress options
     /// with the upstream's <c>/.nwm</c> + <c>/actions</c>. Each NWP action becomes
     /// an A2A skill.
     /// </summary>
@@ -125,7 +125,7 @@ public sealed class A2aIngress
                          $"Method '{req.Method}' is not supported by this ingress."),
             };
         }
-        catch (BridgeException bex)
+        catch (IngressException bex)
         {
             return Err(req.Id, bex.Code, bex.Message);
         }
@@ -135,7 +135,7 @@ public sealed class A2aIngress
         }
         catch (Exception ex)
         {
-            _log.LogError(ex, "A2A bridge dispatch failed for method {Method}", req.Method);
+            _log.LogError(ex, "A2A ingress dispatch failed for method {Method}", req.Method);
             return Err(req.Id, JsonRpcErrorCodes.InternalError, ex.Message);
         }
     }
@@ -145,11 +145,11 @@ public sealed class A2aIngress
     private async Task<JsonElement> HandleSend(JsonElement? rawParams, CancellationToken ct)
     {
         var p = rawParams?.Deserialize<A2aSendTaskParams>(Json)
-            ?? throw new BridgeException(JsonRpcErrorCodes.InvalidParams, "tasks/send requires params.");
+            ?? throw new IngressException(JsonRpcErrorCodes.InvalidParams, "tasks/send requires params.");
         if (string.IsNullOrWhiteSpace(p.Id))
-            throw new BridgeException(JsonRpcErrorCodes.InvalidParams, "tasks/send: `id` is required.");
+            throw new IngressException(JsonRpcErrorCodes.InvalidParams, "tasks/send: `id` is required.");
         if (p.Message is null || p.Message.Parts is null || p.Message.Parts.Count == 0)
-            throw new BridgeException(JsonRpcErrorCodes.InvalidParams, "tasks/send: `message.parts` must contain at least one part.");
+            throw new IngressException(JsonRpcErrorCodes.InvalidParams, "tasks/send: `message.parts` must contain at least one part.");
 
         var (actionId, paramsElement) = ExtractSkill(p);
 
@@ -241,9 +241,9 @@ public sealed class A2aIngress
     private async Task<JsonElement> HandleGet(JsonElement? rawParams, CancellationToken ct)
     {
         var p = rawParams?.Deserialize<A2aGetTaskParams>(Json)
-            ?? throw new BridgeException(JsonRpcErrorCodes.InvalidParams, "tasks/get requires params.");
+            ?? throw new IngressException(JsonRpcErrorCodes.InvalidParams, "tasks/get requires params.");
         if (!_tasks.TryGetValue(p.Id, out var binding))
-            throw new BridgeException(JsonRpcErrorCodes.TaskNotFound,
+            throw new IngressException(JsonRpcErrorCodes.TaskNotFound,
                 $"Task '{p.Id}' is not tracked by this ingress — either it never existed or the ingress restarted.");
 
         var nowIso = DateTimeOffset.UtcNow.ToString("o");
@@ -257,7 +257,7 @@ public sealed class A2aIngress
         var body = await resp.Content.ReadAsStringAsync(ct);
 
         if (!resp.IsSuccessStatusCode)
-            throw new BridgeException(JsonRpcErrorCodes.UpstreamError,
+            throw new IngressException(JsonRpcErrorCodes.UpstreamError,
                 $"Upstream task status returned HTTP {(int)resp.StatusCode}: {body}");
 
         using var doc = JsonDocument.Parse(body);
@@ -276,9 +276,9 @@ public sealed class A2aIngress
     private async Task<JsonElement> HandleCancel(JsonElement? rawParams, CancellationToken ct)
     {
         var p = rawParams?.Deserialize<A2aCancelTaskParams>(Json)
-            ?? throw new BridgeException(JsonRpcErrorCodes.InvalidParams, "tasks/cancel requires params.");
+            ?? throw new IngressException(JsonRpcErrorCodes.InvalidParams, "tasks/cancel requires params.");
         if (!_tasks.TryGetValue(p.Id, out var binding))
-            throw new BridgeException(JsonRpcErrorCodes.TaskNotFound,
+            throw new IngressException(JsonRpcErrorCodes.TaskNotFound,
                 $"Task '{p.Id}' is not tracked by this ingress.");
 
         var invokeBody = JsonSerializer.SerializeToElement(new
@@ -291,7 +291,7 @@ public sealed class A2aIngress
         var body = await resp.Content.ReadAsStringAsync(ct);
 
         if (!resp.IsSuccessStatusCode)
-            throw new BridgeException(JsonRpcErrorCodes.TaskNotCancelable,
+            throw new IngressException(JsonRpcErrorCodes.TaskNotCancelable,
                 $"Upstream refused cancel: HTTP {(int)resp.StatusCode} {body}");
 
         var nowIso = DateTimeOffset.UtcNow.ToString("o");
@@ -337,7 +337,7 @@ public sealed class A2aIngress
             }
         }
 
-        throw new BridgeException(JsonRpcErrorCodes.InvalidParams,
+        throw new IngressException(JsonRpcErrorCodes.InvalidParams,
             "tasks/send: could not determine the skill id — set `params.metadata.skillId`, `message.metadata.skillId`, or include a `data` part containing `skillId`.");
     }
 
@@ -515,7 +515,7 @@ public sealed class A2aIngress
 }
 
 /// <summary>Internal exception carrying a JSON-RPC error code.</summary>
-internal sealed class BridgeException(int code, string message) : Exception(message)
+internal sealed class IngressException(int code, string message) : Exception(message)
 {
     public int Code { get; } = code;
 }
