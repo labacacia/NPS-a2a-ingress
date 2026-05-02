@@ -8,6 +8,18 @@
 
 ---
 
+## [1.0.0-alpha.5] —— 2026-05-01
+
+### 同步
+
+- 版本随 NPS 套件升至 1.0.0-alpha.5，本包自身无功能变更。
+- 套件 alpha.5 亮点：nps-ledger Phase 3 STH gossip 联邦、
+  `AnchorNodeMiddleware` `node_kind` 弃用警告（alpha.6 移除别名）、
+  六个 SDK 的 NDP DNS TXT 回退解析、30 个新 NWP 错误码常量。
+- 18 tests 仍全绿。
+
+---
+
 ## [1.0.0-alpha.4] —— 2026-04-30
 
 ### 同步
@@ -56,6 +68,7 @@
 
 在 NPS 套件 `v1.0.0-alpha.1` 标签下首次发布。
 
+[1.0.0-alpha.5]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.5
 [1.0.0-alpha.4]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.4
 [1.0.0-alpha.3]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.3
 [1.0.0-alpha.2]: https://github.com/LabAcacia/nps/releases/tag/v1.0.0-alpha.2

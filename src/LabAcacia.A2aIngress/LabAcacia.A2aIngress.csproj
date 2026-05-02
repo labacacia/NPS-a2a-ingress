@@ -9,7 +9,7 @@
     <RootNamespace>LabAcacia.A2aIngress</RootNamespace>
     <PackageId>LabAcacia.A2aIngress</PackageId>
     <AssemblyName>LabAcacia.A2aIngress</AssemblyName>
-    <Version>1.0.0-alpha.4</Version>
+    <Version>1.0.0-alpha.5</Version>
     <Description>A2A ↔ NWP ingress: exposes an NPS NWP Action / Complex / Gateway Node to Google's Agent-to-Agent (A2A) protocol clients.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Authors>LabAcacia / INNO LOTUS PTY LTD</Authors>
