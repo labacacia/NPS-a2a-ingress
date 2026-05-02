@@ -8,6 +8,20 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 ---
 
+## [1.0.0-alpha.5] — 2026-05-01
+
+### Synced
+
+- Version bumped 1.0.0-alpha.4 → 1.0.0-alpha.5 in lockstep with the
+  rest of the NPS suite. No functional changes in A2A Ingress itself.
+- Suite highlights at alpha.5: nps-ledger Phase 3 STH gossip federation,
+  `AnchorNodeMiddleware` `node_kind` deprecation warning (alias removed at
+  alpha.6), NDP DNS TXT fallback across all six SDKs, 30 new NWP error
+  code constants.
+- 18 tests still green.
+
+---
+
 ## [1.0.0-alpha.4] — 2026-04-30
 
 ### Synced
@@ -59,6 +73,7 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 Initial release under the NPS suite `v1.0.0-alpha.1` umbrella tag.
 
+[1.0.0-alpha.5]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.5
 [1.0.0-alpha.4]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.4
 [1.0.0-alpha.3]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.3
 [1.0.0-alpha.2]: https://github.com/LabAcacia/nps/releases/tag/v1.0.0-alpha.2
