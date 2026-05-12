@@ -129,7 +129,7 @@ JSON-RPC *通知*（无 `id`）返回 HTTP `204 No Content`。
 ## 测试
 
 ```bash
-dotnet test compat/a2a-ingress/tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIngress.Tests.csproj
+dotnet test tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIngress.Tests.csproj
 ```
 
 测试基于桩 `HttpMessageHandler`，无需网络。
@@ -138,8 +138,8 @@ dotnet test compat/a2a-ingress/tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIng
 
 ## 扩展阅读
 
-- [A2A Ingress 详解](../../docs/compat/a2a-ingress.md) — 1:1 AgentCard 映射、skill 查找、任务状态转换、内存绑定图、多副本注意
-- [桥层总览](../../docs/compat/index.md) — MCP / A2A / gRPC 何时选哪个
+- [A2A Ingress 详解](https://github.com/labacacia/NPS-Dev/blob/main/docs/compat/a2a-ingress.md) — 1:1 AgentCard 映射、skill 查找、任务状态转换、内存绑定图、多副本注意
+- [桥层总览](https://github.com/labacacia/NPS-Dev/blob/main/docs/compat/index.md) — MCP / A2A / gRPC 何时选哪个
 
 ---
 
