@@ -8,6 +8,14 @@
 
 ---
 
+## [1.0.0-alpha.6] —— 2026-05-12
+
+### Changed
+
+- 版本随 NPS 套件升至 `1.0.0-alpha.6`。本包无单独 API 变更。
+
+---
+
 ## [1.0.0-alpha.5] —— 2026-05-01
 
 ### 同步
@@ -70,6 +78,7 @@
 
 在 NPS 套件 `v1.0.0-alpha.1` 标签下首次发布。
 
+[1.0.0-alpha.6]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.6
 [1.0.0-alpha.5]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.5
 [1.0.0-alpha.4]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.4
 [1.0.0-alpha.3]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.3
