@@ -8,6 +8,14 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 ---
 
+## [1.0.0-alpha.6] — 2026-05-12
+
+### Changed
+
+- Version bumped to `1.0.0-alpha.6` in lockstep with the NPS suite. No package-specific API changes.
+
+---
+
 ## [1.0.0-alpha.5] — 2026-05-01
 
 ### Synced
@@ -77,6 +85,7 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 Initial release under the NPS suite `v1.0.0-alpha.1` umbrella tag.
 
+[1.0.0-alpha.6]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.6
 [1.0.0-alpha.5]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.5
 [1.0.0-alpha.4]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.4
 [1.0.0-alpha.3]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.3
