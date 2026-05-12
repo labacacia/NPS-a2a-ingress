@@ -133,7 +133,7 @@ multi-replica deployments, replace the in-memory dictionary with a shared store
 ## Testing
 
 ```bash
-dotnet test compat/a2a-ingress/tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIngress.Tests.csproj
+dotnet test tests/LabAcacia.A2aIngress.Tests/LabAcacia.A2aIngress.Tests.csproj
 ```
 
 Tests run against a stub `HttpMessageHandler` — no network required.
@@ -142,8 +142,8 @@ Tests run against a stub `HttpMessageHandler` — no network required.
 
 ## Further reading
 
-- [A2A Ingress deep dive](../../docs/compat/a2a-ingress.en.md) — 1:1 AgentCard mapping, skill lookup, task state translation, in-memory binding map, replica notes
-- [Compat ingresses overview](../../docs/compat/index.en.md) — when to pick MCP / A2A / gRPC
+- [A2A Ingress deep dive](https://github.com/labacacia/NPS-Dev/blob/main/docs/compat/a2a-ingress.en.md) — 1:1 AgentCard mapping, skill lookup, task state translation, in-memory binding map, replica notes
+- [Compat ingresses overview](https://github.com/labacacia/NPS-Dev/blob/main/docs/compat/index.en.md) — when to pick MCP / A2A / gRPC
 
 ---
 
