@@ -8,11 +8,11 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 ---
 
-## [1.0.0-alpha.6] — 2026-05-12
+## [1.0.0-alpha.6] — 2026-05-14
 
 ### Changed
 
-- Version bumped to `1.0.0-alpha.6` in lockstep with the NPS suite. No package-specific API changes.
+- **Version bump to `1.0.0-alpha.6`** — synchronized with NPS suite alpha.6 release. No functional changes in this ingress adapter.
 
 ---
 
