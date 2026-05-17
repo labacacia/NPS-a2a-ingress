@@ -8,6 +8,18 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 ---
 
+## [1.0.0-alpha.7] — 2026-05-17
+
+### Synced
+
+- Version bumped `1.0.0-alpha.6` → `1.0.0-alpha.7` in lockstep with the NPS suite.
+  No functional changes in A2A Ingress itself.
+- Suite highlights at alpha.7: `ReputationLogClient` (RFC-0004 Ph2) across all six
+  SDKs; AnchorNodeClient test parity for Python / Go / Java / Rust; NIP CA Server
+  gains CR-0005 RA model database migration (`db/003_ra_model.sql`).
+
+---
+
 ## [1.0.0-alpha.6] — 2026-05-14
 
 ### Changed
@@ -85,6 +97,7 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 Initial release under the NPS suite `v1.0.0-alpha.1` umbrella tag.
 
+[1.0.0-alpha.7]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.7
 [1.0.0-alpha.6]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.6
 [1.0.0-alpha.5]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.5
 [1.0.0-alpha.4]: https://github.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.4

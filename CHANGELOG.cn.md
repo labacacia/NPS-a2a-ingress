@@ -8,6 +8,15 @@
 
 ---
 
+## [1.0.0-alpha.7] —— 2026-05-17
+
+### 同步
+
+- 版本随 NPS 套件升至 `1.0.0-alpha.7`，本适配器无功能性改动。
+- 套件 alpha.7 亮点：六语言 SDK 全部落地 `ReputationLogClient`（RFC-0004 Ph2）；Python / Go / Java / Rust 四语言 AnchorNodeClient 测试覆盖达标；NIP CA Server 新增 CR-0005 RA 模型数据库迁移（`db/003_ra_model.sql`）。
+
+---
+
 ## [1.0.0-alpha.6] —— 2026-05-14
 
 ### 变更
@@ -78,6 +87,7 @@
 
 在 NPS 套件 `v1.0.0-alpha.1` 标签下首次发布。
 
+[1.0.0-alpha.7]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.7
 [1.0.0-alpha.6]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.6
 [1.0.0-alpha.5]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.5
 [1.0.0-alpha.4]: https://gitee.com/labacacia/NPS-a2a-ingress/releases/tag/v1.0.0-alpha.4
