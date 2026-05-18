@@ -3,6 +3,13 @@
 # LabAcacia.A2aIngress
 
 [![NuGet](https://img.shields.io/nuget/v/LabAcacia.A2aIngress.svg)](https://www.nuget.org/packages/LabAcacia.A2aIngress)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![Release](https://img.shields.io/badge/release-v1.0.0--alpha.7-orange.svg)](CHANGELOG.cn.md)
+[![NCP](https://img.shields.io/badge/NCP-v0.6-5b8cff.svg)]()
+[![NWP](https://img.shields.io/badge/NWP-v0.12-4af0b0.svg)]()
+[![NIP](https://img.shields.io/badge/NIP-v0.8-7b61ff.svg)]()
+[![NDP](https://img.shields.io/badge/NDP-v0.7-f0a050.svg)]()
+[![NOP](https://img.shields.io/badge/NOP-v0.5-ff8c42.svg)]()
 
 一个 **ASP.NET Core 库**，把单个 **NPS NWP Action / Complex / Gateway Node** 暴露为
 [Google Agent-to-Agent (A2A)](https://github.com/google/A2A) 服务端。A2A
