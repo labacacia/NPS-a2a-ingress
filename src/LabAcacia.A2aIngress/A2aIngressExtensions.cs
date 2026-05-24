@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 namespace LabAcacia.NPS.A2aIngress;
 
 /// <summary>DI + pipeline extensions for the A2A ingress.</summary>
+[Obsolete("Package LabAcacia.A2aBridge is deprecated. Use LabAcacia.NPS.A2aIngress instead.")]
 public static class A2aIngressExtensions
 {
     /// <summary>

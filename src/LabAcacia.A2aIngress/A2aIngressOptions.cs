@@ -8,6 +8,7 @@ namespace LabAcacia.NPS.A2aIngress;
 /// single logical agent — unlike MCP (which multiplexes several upstreams under one
 /// server), the A2A ingress binds exactly one upstream per AgentCard.
 /// </summary>
+[Obsolete("Package LabAcacia.A2aBridge is deprecated. Use LabAcacia.NPS.A2aIngress instead.")]
 public sealed record A2aUpstream
 {
     /// <summary>Base URL of the NWP node (no trailing slash).</summary>
@@ -21,6 +22,7 @@ public sealed record A2aUpstream
 }
 
 /// <summary>Configuration for <see cref="A2aIngress"/>.</summary>
+[Obsolete("Package LabAcacia.A2aBridge is deprecated. Use LabAcacia.NPS.A2aIngress instead.")]
 public sealed class A2aIngressOptions
 {
     /// <summary>AgentCard <c>name</c> — human-readable.</summary>
