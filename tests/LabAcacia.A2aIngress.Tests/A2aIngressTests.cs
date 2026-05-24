@@ -4,7 +4,7 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using LabAcacia.A2aIngress;
+using LabAcacia.NPS.A2aIngress;
 using Xunit;
 
 namespace LabAcacia.A2aIngress.Tests;

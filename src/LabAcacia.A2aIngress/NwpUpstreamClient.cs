@@ -4,7 +4,7 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace LabAcacia.A2aIngress;
+namespace LabAcacia.NPS.A2aIngress;
 
 /// <summary>
 /// Thin typed client for the single upstream NWP node that this A2A ingress fronts.

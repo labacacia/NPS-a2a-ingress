@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace LabAcacia.A2aIngress;
+namespace LabAcacia.NPS.A2aIngress;
 
 /// <summary>DI + pipeline extensions for the A2A ingress.</summary>
 public static class A2aIngressExtensions

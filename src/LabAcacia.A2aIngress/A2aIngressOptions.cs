@@ -1,7 +1,7 @@
 // Copyright 2026 INNO LOTUS PTY LTD
 // SPDX-License-Identifier: Apache-2.0
 
-namespace LabAcacia.A2aIngress;
+namespace LabAcacia.NPS.A2aIngress;
 
 /// <summary>
 /// Upstream NWP node that the A2A ingress proxies to. An A2A AgentCard describes a

@@ -6,7 +6,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace LabAcacia.A2aIngress;
+namespace LabAcacia.NPS.A2aIngress;
 
 /// <summary>
 /// Core A2A ↔ NWP dispatcher. Translates A2A JSON-RPC methods into calls on the

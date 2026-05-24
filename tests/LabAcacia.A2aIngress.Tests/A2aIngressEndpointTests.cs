@@ -4,7 +4,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-using LabAcacia.A2aIngress;
+using LabAcacia.NPS.A2aIngress;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
