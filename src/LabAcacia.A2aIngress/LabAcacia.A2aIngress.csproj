@@ -9,7 +9,7 @@
     <RootNamespace>LabAcacia.NPS.A2aIngress</RootNamespace>
     <PackageId>LabAcacia.A2aBridge</PackageId>
     <AssemblyName>LabAcacia.A2aBridge</AssemblyName>
-    <Version>1.0.0-alpha.7</Version>
+    <Version>1.0.0-alpha.8</Version>
     <Description>DEPRECATED: Use LabAcacia.NPS.A2aIngress instead. A2A ↔ NWP ingress adapter (legacy package name).</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Authors>LabAcacia / INNO LOTUS PTY LTD</Authors>

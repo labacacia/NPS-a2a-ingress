@@ -8,6 +8,15 @@
 
 ---
 
+## [1.0.0-alpha.8] —— 2026-05-28
+
+### 同步
+
+- 版本随 NPS 套件升至 `1.0.0-alpha.8`，本适配器无功能性改动。
+- 套件 alpha.8 亮点：.NET SDK 新增 RFC-0005 `ReputationPolicyEvaluator`；cgn_limit 执行前校验；RFC-0002 与 RFC-0005 晋升为 Accepted 状态。
+
+---
+
 ## [1.0.0-alpha.7] —— 2026-05-17
 
 ### 同步
