@@ -7,10 +7,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RootNamespace>LabAcacia.NPS.A2aIngress</RootNamespace>
-    <PackageId>LabAcacia.A2aBridge</PackageId>
-    <AssemblyName>LabAcacia.A2aBridge</AssemblyName>
+    <PackageId>LabAcacia.NPS.A2aIngress</PackageId>
+    <AssemblyName>LabAcacia.NPS.A2aIngress</AssemblyName>
     <Version>1.0.0-alpha.8</Version>
-    <Description>DEPRECATED: Use LabAcacia.NPS.A2aIngress instead. A2A ↔ NWP ingress adapter (legacy package name).</Description>
+    <Description>A2A ↔ NWP ingress: exposes an NPS NWP Action / Complex / Gateway Node to Google's Agent-to-Agent (A2A) protocol clients.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Authors>LabAcacia / INNO LOTUS PTY LTD</Authors>
     <Company>INNO LOTUS PTY LTD</Company>
