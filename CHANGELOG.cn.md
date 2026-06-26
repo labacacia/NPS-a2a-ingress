@@ -8,19 +8,15 @@
 
 ---
 
-## [1.0.0-alpha.14] —— 未发布
+## [1.0.0-alpha.14] —— 2026-06-26
 
 ### 文档
-- README release/protocol badge 对齐套件 alpha.14 candidate 文档边界与当前协议版本。
+- README release/protocol badge 对齐套件 alpha.14 release 文档边界与当前协议版本。
 
-### 打包
-- NuGet 包现在产出启用 SourceLink 的 `.snupkg` 符号包，并把 README 打进包内。
-- 移除旧 Bridge 时代遗留在当前 Ingress API surface 上的 obsolete 标记。
-
-## [1.0.0-alpha.13] —— 2026-06-13
+## [1.0.0-alpha.14] —— 2026-06-13
 
 ### 变更
-- 跟随 NPS 套件 `v1.0.0-alpha.13`；适配器行为无变化。
+- 跟随 NPS 套件 `v1.0.0-alpha.14`；适配器行为无变化。
 
 ## [1.0.0-alpha.8] —— 2026-05-28
 
