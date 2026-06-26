@@ -10,7 +10,7 @@ using Xunit;
 namespace LabAcacia.A2aIngress.Tests;
 
 /// <summary>
-/// Unit tests for <see cref="global::LabAcacia.A2aIngress.A2aIngress"/>. The upstream NWP
+/// Unit tests for <see cref="global::LabAcacia.NPS.A2aIngress.A2aIngress"/>. The upstream NWP
 /// Action Node is replaced with a <see cref="StubHandler"/> so we can run without any
 /// real HTTP server or network I/O.
 /// </summary>
@@ -390,7 +390,7 @@ public sealed class A2aIngressTests
 
     // ── Test fixtures ────────────────────────────────────────────────────────
 
-    private static (global::LabAcacia.A2aIngress.A2aIngress Ingress, StubHandler Handler) Build()
+    private static (global::LabAcacia.NPS.A2aIngress.A2aIngress Ingress, StubHandler Handler) Build()
     {
         var handler = StubHandler.ForActionNode();
         var upstream = new A2aUpstream { BaseUrl = new Uri("https://action.test/orders") };
@@ -401,7 +401,7 @@ public sealed class A2aIngressTests
             Upstream     = upstream,
         };
         var client = new NwpUpstreamClient(new HttpClient(handler), upstream);
-        return (new global::LabAcacia.A2aIngress.A2aIngress(opts, client), handler);
+        return (new global::LabAcacia.NPS.A2aIngress.A2aIngress(opts, client), handler);
     }
 }
 

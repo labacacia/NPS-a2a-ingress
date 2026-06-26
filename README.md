@@ -4,22 +4,23 @@ English | [中文版](./README.cn.md)
 
 [![NuGet](https://img.shields.io/nuget/v/LabAcacia.A2aIngress.svg)](https://www.nuget.org/packages/LabAcacia.A2aIngress)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Release](https://img.shields.io/badge/release-v1.0.0--alpha.8-orange.svg)](CHANGELOG.md)
-[![NCP](https://img.shields.io/badge/NCP-v0.6-5b8cff.svg)]()
-[![NWP](https://img.shields.io/badge/NWP-v0.12-4af0b0.svg)]()
-[![NIP](https://img.shields.io/badge/NIP-v0.8-7b61ff.svg)]()
-[![NDP](https://img.shields.io/badge/NDP-v0.7-f0a050.svg)]()
-[![NOP](https://img.shields.io/badge/NOP-v0.5-ff8c42.svg)]()
+[![Release](https://img.shields.io/badge/release-v1.0.0--alpha.13-orange.svg)](CHANGELOG.md)
+[![Next](https://img.shields.io/badge/next-v1.0.0--alpha.14--candidate-yellow.svg)](CHANGELOG.md#100-alpha14--unreleased)
+[![NCP](https://img.shields.io/badge/NCP-v0.8-5b8cff.svg)]()
+[![NWP](https://img.shields.io/badge/NWP-v0.14-4af0b0.svg)]()
+[![NIP](https://img.shields.io/badge/NIP-v0.10-7b61ff.svg)]()
+[![NDP](https://img.shields.io/badge/NDP-v0.9-f0a050.svg)]()
+[![NOP](https://img.shields.io/badge/NOP-v0.7-ff8c42.svg)]()
 
-An **ASP.NET Core library** that exposes a single **NPS NWP Action / Complex /
-Gateway Node** as a [Google Agent-to-Agent (A2A)](https://github.com/google/A2A)
+An **ASP.NET Core library** that exposes a single **NPS NWP Action / Complex
+Node** as a [Google Agent-to-Agent (A2A)](https://github.com/google/A2A)
 server. A2A-speaking peer agents can discover the node via
 `/.well-known/agent.json` and invoke NWP actions through standard JSON-RPC 2.0
 without knowing anything about NPS.
 
 - **Protocol**: A2A v0.2 — JSON-RPC 2.0 over HTTP POST.
 - **Target**: .NET 10, ASP.NET Core.
-- **NWP spec**: `spec/NPS-2-NWP.md` v0.5 (Action Node §7, async lifecycle §7.2, `system.task.status` / `system.task.cancel` §7.3).
+- **NWP spec**: `spec/NPS-2-NWP.md` v0.14 (Action Node §7, async lifecycle §7.2, `system.task.status` / `system.task.cancel` §7.3).
 
 ---
 

@@ -8,6 +8,15 @@ Until NPS reaches v1.0 stable, every repository in the suite is synchronized to 
 
 ---
 
+## [1.0.0-alpha.14] — Unreleased
+
+### Docs
+- Align README release/protocol badges with the suite alpha.14 candidate documentation boundary and current protocol versions.
+
+### Packaging
+- Emit SourceLink-enabled `.snupkg` symbol packages and include the README in NuGet packages.
+- Remove stale Bridge-era obsolete attributes from the current Ingress API surface.
+
 ## [1.0.0-alpha.13] — 2026-06-13
 
 ### Changed

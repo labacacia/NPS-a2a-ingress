@@ -24,7 +24,6 @@ namespace LabAcacia.NPS.A2aIngress;
 /// otherwise from the <c>data</c> part minus the skill-id key.
 /// </para>
 /// </summary>
-[Obsolete("Package LabAcacia.A2aBridge is deprecated. Use LabAcacia.NPS.A2aIngress instead.")]
 public sealed class A2aIngress
 {
     internal static readonly JsonSerializerOptions Json = new()
