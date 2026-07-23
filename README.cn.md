@@ -4,7 +4,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/LabAcacia.A2aIngress.svg)](https://www.nuget.org/packages/LabAcacia.A2aIngress)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](../../LICENSE)
-[![Release](https://img.shields.io/badge/release-v1.0.0--alpha.15-orange.svg)](CHANGELOG.cn.md)
+[![Release](https://img.shields.io/badge/release-v1.0.0--alpha.16-orange.svg)](CHANGELOG.cn.md)
 [![NCP](https://img.shields.io/badge/NCP-v0.9-5b8cff.svg)]()
 [![NWP](https://img.shields.io/badge/NWP-v0.14-4af0b0.svg)]()
 [![NIP](https://img.shields.io/badge/NIP-v0.10-7b61ff.svg)]()
